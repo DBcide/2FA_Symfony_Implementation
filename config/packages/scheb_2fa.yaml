@@ -8,3 +8,4 @@ scheb_two_factor:
         server_name: app_name
         issuer: name of-the app
         leeway: 15
+        template: 'security/2fa_form.html.twig'

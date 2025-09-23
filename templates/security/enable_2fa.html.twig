@@ -1,20 +1,40 @@
+{# templates/security/enable_2fa.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Enable 2fa!{% endblock %}
+{% block title %}Activation de la double authentification{% endblock %}
 
 {% block body %}
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div class="card shadow-sm" style="max-width: 500px; width: 100%;">
+            <div class="card-body text-center p-4">
 
-<img src="{{ qr_code_data_uri(qr_code_content) }}" alt="QR Code pour 2FA" class="img-fluid" />
+                <h2 class="h4 fw-bold mb-3">Activer la vérification en 2 étapes</h2>
+                <p class="text-muted mb-4">
+                    Scannez ce QR Code avec Google Authenticator ou une autre application compatible,
+                    puis saisissez le code généré pour activer la 2FA.
+                </p>
 
+                <div class="mb-4">
+                    <img src="{{ qr_code_data_uri(qr_code_content) }}"
+                         alt="QR Code pour 2FA"
+                         class="img-fluid rounded shadow-sm mb-3"
+                         style="max-width: 200px;" />
 
-{{ secret }}
+                    <p class="small text-muted">
+                        Secret : <span class="fw-bold text-monospace">{{ secret }}</span>
+                    </p>
+                </div>
 
+                {{ form_start(form, { attr: { class: "mb-3" } }) }}
+                <div class="mb-3 text-start">
+                    {{ form_widget(form, { attr: { class: "form-control" } }) }}
+                </div>
+                <button type="submit" class="btn btn-success w-100">
+                    Activer la 2FA
+                </button>
+                {{ form_end(form) }}
 
-
-{{ form_start(form) }}
-{{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">
-        Activer la 2FA
-    </button>
-{{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

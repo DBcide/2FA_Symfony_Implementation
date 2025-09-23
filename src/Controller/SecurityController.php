@@ -59,7 +59,6 @@ class SecurityController extends AbstractController
         }
 
         $error = null;
-        $codeValidated = false;
 
         $form = $this->createForm(Enable2faFormType::class);
         $form->handleRequest($request);
@@ -73,8 +72,6 @@ class SecurityController extends AbstractController
             $tempUser->setGoogleAuthenticatorSecret($secret);
 
             if ($googleAuthenticator->checkCode($tempUser, $code)) {
-                $codeValidated = true;
-
                 // NOW we save the secret to database and enable 2FA
                 $user->setGoogleAuthenticatorSecret($secret);
                 $em->persist($user);
@@ -91,7 +88,7 @@ class SecurityController extends AbstractController
         }
 
         // Generate the Google Authenticator URL for QR code
-        $appName = 'Mon Application'; // Remplacez par le nom de votre app
+        $appName = '2FA Training'; // Remplacez par le nom de votre app
         $userEmail = $user->getEmail(); // ou $user->getUsername()
 
         $qrCodeContent = sprintf(
@@ -107,7 +104,6 @@ class SecurityController extends AbstractController
             'secret' => $secret,
             'qr_code_content' => $qrCodeContent,
             'error' => $error,
-            'codeValidated' => $codeValidated,
         ]);
     }
 }
