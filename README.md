@@ -1,7 +1,0 @@
-- Cloner la repo
-- Dans un terminal, faites un : composer install
-- Copier/coller le fichier .env dans un fichier .env.local et paramétrer la base de données MariaDB
-- Créer la database avec la commande: symfony console doctrine:database:create
-- Appliquer les migrations pour créer le schéma de base de données avec la commande: symfony console doctrine:migrations:migrate
-- Démarrer un serveur avec la commande: symfony server:start -d
-- Ajouter un utilisateur via la commande: exemple: symfony console app:add-user nom.prenom@truc.fr motdepasse --role ROLE_ADMIN --role ROLE_ETUDIANT
