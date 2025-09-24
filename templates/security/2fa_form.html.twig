@@ -32,22 +32,25 @@
                     </div>
                 {% endif %}
 
-                <form action="{{ checkPathUrl ? checkPathUrl : path(checkPathRoute) }}" method="post">
-                    <div class="mb-3">
-                        <label for="_auth_code" class="form-label">
+                <form id="otp-form" action="{{ checkPathUrl ? checkPathUrl : path(checkPathRoute) }}" method="post">
+                    <div class="mb-4 text-center">
+                        <label class="form-label d-block mb-2">
                             {{ "auth_code"|trans({}, 'SchebTwoFactorBundle') }} {{ twoFactorProvider }} :
                         </label>
-                        <input
-                            id="_auth_code"
-                            type="text"
-                            name="{{ authCodeParameterName }}"
-                            autocomplete="one-time-code"
-                            autofocus
-                            inputmode="numeric"
-                            pattern="[0-9]*"
-                            class="form-control"
-                        />
+                        <div class="d-flex justify-content-between">
+                            {% for i in 1..6 %}
+                                <input type="text"
+                                       class="form-control text-center mx-1 otp-input"
+                                       maxlength="1"
+                                       inputmode="numeric"
+                                       pattern="[0-9]*"
+                                       required
+                                       style="width: 3rem; font-size: 1.5rem;" />
+                            {% endfor %}
+                        </div>
                     </div>
+
+                    <input type="hidden" name="{{ authCodeParameterName }}" id="otp-hidden">
 
                     {% if displayTrustedOption %}
                         <div class="form-check mb-3">
@@ -80,4 +83,32 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputs = document.querySelectorAll(".otp-input");
+            const hidden = document.getElementById("otp-hidden");
+            const form = document.getElementById("otp-form");
+
+            inputs.forEach((input, i) => {
+                input.addEventListener("input", () => {
+                    if (input.value.length === 1 && i < inputs.length - 1) {
+                        inputs[i + 1].focus();
+                    }
+                });
+
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Backspace" && !input.value && i > 0) {
+                        inputs[i - 1].focus();
+                    }
+                });
+            });
+
+            form.addEventListener("submit", () => {
+                let code = "";
+                inputs.forEach(input => code += input.value);
+                hidden.value = code;
+            });
+        });
+    </script>
 {% endblock %}
