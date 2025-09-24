@@ -22,11 +22,17 @@
 
 ## Installation
 
-### 1. Installer le bundle 2FA
+### 1.1 Installer le bundle 2FA
 
 ``` bash
 composer require scheb/2fa-bundle
 composer require scheb/2fa-google-authenticator
+```
+
+### 1.2 Installer qr code bundle
+
+``` bash
+composer require endroid/qr-code-bundle
 ```
 
 ### 2. Configuration de la base de données
