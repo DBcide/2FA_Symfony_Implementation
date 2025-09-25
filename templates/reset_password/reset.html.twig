@@ -1,0 +1,56 @@
+{# templates/reset_password/reset.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Réinitialiser votre mot de passe{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
+
+            <h1 class="h4 text-center fw-bold mb-4">Réinitialiser votre mot de passe</h1>
+
+            {{ form_start(resetForm) }}
+
+            {# Récupération de toutes les erreurs du mot de passe #}
+            {% set passwordErrors = resetForm.plainPassword.first.vars.errors|merge(resetForm.plainPassword.second.vars.errors) %}
+            {% if passwordErrors|length > 0 %}
+                <div class="alert alert-danger">
+                    <ul>
+                    {% for error in passwordErrors %}
+                        <li>{{ error.message }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {# Nouveau mot de passe #}
+            <div class="row mb-3 align-items-center">
+                <div class="col-12 col-md-4 text-md-end text-nowrap mb-1 mb-md-0">
+                    {{ form_label(resetForm.plainPassword.first, 'Nouveau mot de passe', {'label_attr': {'class': 'col-form-label'}}) }}
+                </div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(resetForm.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            {# Confirmation du mot de passe #}
+            <div class="row mb-3 align-items-center">
+                <div class="col-12 col-md-4 text-md-end text-nowrap mb-1 mb-md-0">
+                    {{ form_label(resetForm.plainPassword.second, 'Répéter le mot de passe', {'label_attr': {'class': 'col-form-label'}}) }}
+                </div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(resetForm.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">
+                    Réinitialiser le mot de passe
+                </button>
+            </div>
+
+            {{ form_end(resetForm) }}
+
+        </div>
+    </div>
+{% endblock %}
