@@ -17,6 +17,7 @@
 ![Framework](https://img.shields.io/badge/Framework-Symfony-000000?logo=symfony&logoColor=white)
 ![Symfony CLI](https://img.shields.io/badge/Symfony_CLI-5.12.0-brightgreen?logo=symfony)
 ![PHP CLI](https://img.shields.io/badge/PHP_CLI-8.4.8-777bb4?logo=php&logoColor=white)
+![Last commit](https://img.shields.io/github/last-commit/DBcide/2FA_Symfony_Implementation?logo=github&logoColor=white)
 
 ---
 
