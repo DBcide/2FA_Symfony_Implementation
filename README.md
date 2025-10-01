@@ -205,3 +205,110 @@ public function enable_2fa(
 -   Validation du code avant activation\
 -   Le secret final est stocké de manière sécurisée en base de données\
 -   Protection CSRF activée
+
+---
+
+# Documentation : Système de réinitialisation de mot de passe (Symfony)
+
+Ce projet utilise le **Symfony ResetPasswordBundle** pour gérer le processus complet de réinitialisation des mots de passe.
+
+---
+
+## 📌 Entité : `ResetPasswordRequest`
+
+Cette entité représente une **demande de réinitialisation de mot de passe**.  
+Elle stocke :
+- L’utilisateur associé à la demande (`user`)
+- Le **token** de réinitialisation généré (unique et temporaire)
+- La date/heure d’expiration du token
+- La date/heure de création de la demande
+
+👉 En résumé : elle permet de lier **un utilisateur** et **une demande de reset de mot de passe** valide dans le temps.
+
+---
+
+## 📌 Contrôleur : `ResetPasswordController`
+
+Le contrôleur gère le flux complet :
+
+### 1. `request()`
+- Affiche le formulaire `ForgotPasswordRequestForm`.
+- L’utilisateur entre son adresse e-mail.
+- Si elle existe dans la base :
+    - Génère un `ResetPasswordRequest` (token + date d’expiration).
+    - Envoie un **email de réinitialisation** contenant un lien avec le token.
+
+👉 Le lien ressemble à :  
+`https://monsite/reset-password/{token}`
+
+---
+
+### 2. `checkEmail()`
+- Affiche une page confirmant que **si l’email existe**, un message a été envoyé.
+- Cette étape permet d’éviter de révéler si une adresse est enregistrée ou non.
+
+---
+
+### 3. `reset()`
+- Vérifie que le **token** est valide et non expiré.
+- Affiche le formulaire `ChangePasswordForm` (champs : nouveau mot de passe + confirmation).
+- Une fois soumis et validé :
+    - Met à jour le mot de passe de l’utilisateur (hashé).
+    - Supprime la demande de reset (`ResetPasswordRequest`).
+    - Redirige l’utilisateur (ex. vers la page de connexion).
+
+---
+
+## 📌 Formulaires
+
+### `ForgotPasswordRequestForm`
+- Contient **un seul champ email**.
+- Validé par Symfony Validator (`NotBlank`, `Email`).
+- Déclenche la génération du token.
+
+### `ChangePasswordForm`
+- Contient **deux champs mot de passe** (nouveau mot de passe + confirmation).
+- Validation :
+    - Les deux mots de passe doivent correspondre.
+    - Contrôles supplémentaires via `PasswordHasher` et les contraintes définies.
+
+---
+
+## 📌 Validation de la robustesse du mot de passe
+
+La vérification de la robustesse du mot de passe se fait via :
+
+- **Symfony Validator** sur le champ `plainPassword` dans l’entité `User`.  
+  Exemple courant dans `User.php` :
+  ```php
+  #[Assert\NotBlank]
+  #[Assert\Length(min: 12)]
+  #[PasswordStrength]
+  ```
+
+- Le bundle peut aussi intégrer **zxcvbn** (bibliothèque de calcul de force de mot de passe).
+- Des messages d’erreur clairs sont affichés dans le formulaire si :
+    - Le mot de passe est trop court.
+    - Il est trop faible.
+    - Il a été compromis (détection via HaveIBeenPwned).
+
+---
+
+## 🔑 Résumé du flux utilisateur
+
+1. L’utilisateur demande une réinitialisation → saisit son email.
+2. Le système génère un token et envoie un email avec un lien.
+3. L’utilisateur clique sur le lien → saisit un nouveau mot de passe.
+4. Symfony valide le mot de passe (longueur, force, sécurité).
+5. Le mot de passe est enregistré (haché) et l’utilisateur peut se reconnecter.
+
+---
+
+## 📂 Où regarder dans le code ?
+
+- **Entity** → `src/Entity/ResetPasswordRequest.php`
+- **Controller** → `src/Controller/ResetPasswordController.php`
+- **Forms** →
+    - `src/Form/ForgotPasswordRequestFormType.php`
+    - `src/Form/ChangePasswordFormType.php`
+- **Validation mot de passe** → `src/Entity/User.php` (contraintes `Assert`)  

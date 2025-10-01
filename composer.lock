@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8eed91aee70e9fa7f423069747e64782",
+    "content-hash": "70af4f0d62f382f3ee926374f6aa266e",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2397,6 +2397,95 @@
                 "source": "https://github.com/scheb/2fa-google-authenticator/tree/v7.11.0"
             },
             "time": "2025-04-20T08:38:44+00:00"
+        },
+        {
+            "name": "sensiolabs/gotenberg-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sensiolabs/GotenbergBundle.git",
+                "reference": "8aad160eac4a41839894e7fe77706c98f9a62a29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sensiolabs/GotenbergBundle/zipball/8aad160eac4a41839894e7fe77706c98f9a62a29",
+                "reference": "8aad160eac4a41839894e7fe77706c98f9a62a29",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=8.1",
+                "psr/container": "^2.0",
+                "psr/log": "^3.0",
+                "symfony/config": "^6.4 || ^7.0",
+                "symfony/dependency-injection": "^6.4 || ^7.0",
+                "symfony/filesystem": "^6.4 || ^7.0",
+                "symfony/http-client-contracts": "^3.5",
+                "symfony/http-foundation": "^6.4 || ^7.0",
+                "symfony/http-kernel": "^6.4 || ^7.0",
+                "symfony/mime": "^6.4 || ^7.0",
+                "symfony/service-contracts": "^3.6"
+            },
+            "require-dev": {
+                "async-aws/s3": "^2.6",
+                "ext-mbstring": "*",
+                "friendsofphp/php-cs-fixer": "^3.41",
+                "league/flysystem": "^3.29",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpstan/phpstan-symfony": "^2.0",
+                "phpunit/phpunit": "^10.5.46",
+                "shipmonk/composer-dependency-analyser": "^1.8",
+                "symfony/error-handler": "^7.3",
+                "symfony/framework-bundle": "^6.4 || ^7.0",
+                "symfony/http-client": "^6.4 || ^7.0",
+                "symfony/monolog-bundle": "^3.10",
+                "symfony/routing": "^6.4 || ^7.0",
+                "symfony/stopwatch": "^6.4 || ^7.0",
+                "symfony/twig-bundle": "^6.4 || ^7.0",
+                "symfony/var-dumper": "^6.4 || ^7.0",
+                "symfony/yaml": "^6.4 || ^7.0",
+                "twig/twig": "^3.14"
+            },
+            "suggest": {
+                "async-aws/s3": "Upload any file to aws s3 compatible endpoints supporting multi part upload without memory overhead.",
+                "league/flysystem-bundle": "Upload any file using this filesystem abstraction package.",
+                "monolog/monolog": "Enables logging througout the generating process.",
+                "symfony/monolog-bundle": "Enables logging througout the generating process.",
+                "symfony/routing": "Allows you to use webhook to generate URL or route.",
+                "symfony/twig-bundle": "Allows you to use Twig to render templates into PDF."
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Sensiolabs\\GotenbergBundle\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steven Renaux",
+                    "email": "steven.renaux@sensiolabs.com"
+                }
+            ],
+            "description": "Gotenberg support for Symfony",
+            "keywords": [
+                "Gotenberg",
+                "bundle",
+                "office",
+                "pdf",
+                "screenshot",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/sensiolabs/GotenbergBundle/issues",
+                "source": "https://github.com/sensiolabs/GotenbergBundle/tree/v1.0.0"
+            },
+            "time": "2025-07-09T14:29:16+00:00"
         },
         {
             "name": "spomky-labs/otphp",

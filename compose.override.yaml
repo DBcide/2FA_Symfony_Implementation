@@ -16,3 +16,9 @@ services:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
       MP_SMTP_AUTH_ALLOW_INSECURE: 1
 ###< symfony/mailer ###
+
+###> sensiolabs/gotenberg-bundle ###
+  gotenberg:
+    ports:
+      - "3000"
+###< sensiolabs/gotenberg-bundle ###
