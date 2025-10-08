@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card shadow-sm p-4 mx-auto" style="max-width: 500px;">
+            <h2 class="mb-3 text-center">Profil utilisateur</h2>
+
+            <p><strong>Email :</strong> {{ user.email }}</p>
+
+            <p>
+                <strong>Âge :</strong>
+                <span style="color: {{ isSenior ? 'red' : 'inherit' }}">
+                {{ age is not null ? age ~ ' ans' : 'Non renseigné' }}
+            </span>
+            </p>
+
+            <p>
+                <strong>Catégorie d'ancienneté :</strong>
+                {% if category %}
+                    Catégorie {{ category }}
+                {% else %}
+                    Non renseignée
+                {% endif %}
+            </p>
+
+            <div class="text-center mt-4">
+                <a href="{{ path('app_logout') }}" class="btn btn-outline-secondary btn-sm">Se déconnecter</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

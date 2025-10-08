@@ -40,6 +40,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
     #[ORM\Column]
     private bool $isVerified = false;
 
+    #[ORM\Column(type: 'date', nullable: true)]
+    private ?\DateTimeInterface $birthDate = null;
+
+    #[ORM\Column(type: 'date', nullable: true)]
+    private ?\DateTimeInterface $contractStartDate = null;
+
+    // === Getters & Setters ===
+
     public function getId(): ?int
     {
         return $this->id;
@@ -56,6 +64,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
 
         return $this;
     }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(?\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+        return $this;
+    }
+
+    public function getContractStartDate(): ?\DateTimeInterface
+    {
+        return $this->contractStartDate;
+    }
+
+    public function setContractStartDate(?\DateTimeInterface $contractStartDate): self
+    {
+        $this->contractStartDate = $contractStartDate;
+        return $this;
+    }
+
+    // === Méthodes métier ===
 
     /**
      * A visual identifier that represents this user.
@@ -151,5 +183,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFact
         $this->isVerified = $isVerified;
 
         return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        if (!$this->birthDate) {
+            return null;
+        }
+
+        $today = new \DateTime();
+        return $this->birthDate->diff($today)->y;
+    }
+
+    public function isSenior(): bool
+    {
+        $age = $this->getAge();
+        return $age !== null && $age >= 55;
+    }
+
+    public function getSeniorityCategory(): ?int
+    {
+        if (!$this->contractStartDate) {
+            return null;
+        }
+
+        $years = $this->contractStartDate->diff(new \DateTime())->y;
+
+        return match (true) {
+            $years < 1 => 1,
+            $years < 5 => 2,
+            $years < 15 => 3,
+            default => 4,
+        };
     }
 }
