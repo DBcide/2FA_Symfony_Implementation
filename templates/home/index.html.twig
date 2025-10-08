@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div class="card shadow-sm p-4 text-center" style="max-width: 400px; width: 100%;">
+            <h1 class="h4 fw-bold mb-3">Bienvenue sur l’application</h1>
+            <p class="text-muted mb-4">
+                Connectez-vous ou créez un compte pour continuer.
+            </p>
+
+            <div class="d-grid gap-2">
+                <a href="{{ path('app_login') }}" class="btn btn-primary">Se connecter</a>
+                <a href="{{ path('app_register') }}" class="btn btn-outline-secondary">Créer un compte</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -25,8 +25,8 @@ security:
                 # enable_csrf: true
             logout:
                 path: app_logout
-                enable_csrf: true
-                csrf_token_id: logout
+                # enable_csrf: true
+                # csrf_token_id: logout
                 # where to redirect after logout
                 # target: app_any_route
 
