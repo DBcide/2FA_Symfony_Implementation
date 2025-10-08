@@ -29,6 +29,9 @@
                 <div class="mb-3 text-start">
                     {{ form_widget(form, { attr: { class: "form-control" } }) }}
                 </div>
+
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+
                 <button type="submit" class="btn btn-success w-100">
                     Activer la 2FA
                 </button>
