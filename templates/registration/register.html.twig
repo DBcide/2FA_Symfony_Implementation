@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte{% endblock %}
+
+{% block body %}
+    <div class="d-flex align-items-center justify-content-center min-vh-100 bg-light">
+        <div class="card shadow-sm p-4" style="max-width: 500px; width: 100%;">
+
+            <h1 class="h4 text-center fw-bold mb-4">Créer un compte</h1>
+
+            {# Affichage des messages de confirmation ou d’erreur #}
+            {% for message in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger small">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success small">{{ message }}</div>
+            {% endfor %}
+
+            {# Formulaire d'inscription #}
+            {{ form_start(registrationForm) }}
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email, 'Adresse email', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                <div class="form-text">
+                    Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un chiffre.
+                </div>
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_row(registrationForm.agreeTerms, {
+                    label: 'J’accepte les conditions d’utilisation',
+                    attr: {'class': 'form-check-input'},
+                    label_attr: {'class': 'form-check-label ms-1'}
+                }) }}
+            </div>
+
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    Créer mon compte
+                </button>
+            </div>
+
+            {{ form_end(registrationForm) }}
+
+            <div class="text-center small mt-3">
+                Déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
